@@ -1,5 +1,3 @@
-Github: 
-
 Proposal:
 Take road network data (of a city preferably) and parse it into a graph network. Determine the shortest path. Allow the ability to generate traffic (slower weightage of edge) and road closures (no access to that edge) to determine updated shortest path. Compare the two and make insightful data observations.
 
