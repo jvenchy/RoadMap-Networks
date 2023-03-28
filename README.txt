@@ -17,7 +17,6 @@ Produce an output (which may or may not be interactive).
 Functions List To Implement:
 A function to parse road network files into a node and edges network
 
-
 Function for generating road-node network
 Network class
 Road/Channel class
