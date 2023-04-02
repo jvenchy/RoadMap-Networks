@@ -42,6 +42,29 @@ class Node:
         Node(0)
         """
         return f'Node({self.address})'
+    
+    def find_paths(self, destination: int, visited: set[Node]) -> list[list[Road]]:
+        """Return a list of all possible paths from this vertex to the given destination that do NOT use any nodes in
+        visited.
+
+        Preconditions:
+        - self not in visited
+        """
+        paths = []
+        if self.address == destination:
+            return [[]]
+        else:
+            new_visited = visited.union({self})
+            for address in self.roads:
+                road = self.roads[address]
+                u = road.get_other_endpoint(self)
+                if u not in new_visited:
+                    rec_value = u.find_paths(destination, new_visited)
+                    if rec_value == [[]]:
+                        paths.append([road])
+                    else:
+                        paths.extend([[road] + path for path in rec_value])
+            return paths    
 
 
 # @check_contracts
@@ -141,6 +164,59 @@ class RoadNetwork:
             adjacencies_so_far[address] = set(node.roads)
 
         return adjacencies_so_far
+    
+    def find_paths(self, start: int, end: int) -> list[list[Road]]:
+        """Return a list of all paths in this network between start and end.
+
+        Preconditions:
+            - start in self._nodes
+            - end in self._nodes
+        """
+        start_node = self._nodes[start]
+        return start_node.find_paths(end, set())
+
+    def find_shortest_path(self, start: int, end: int) -> list[Road]:
+        """Find the path with the minimum distance from start node to end node.
+
+        Preconditions:
+        - start in self._nodes
+        - end in self._nodes
+        """
+        paths = self.find_paths(start, end)
+        if start == end or paths == []:
+            return []
+        else:
+            return shortest_path(paths)
+        
+        
+# @check_contracts
+def compute_path_distance(path: list[Road]) -> float:
+    """Return the total length of path.
+
+    Preconditions:
+    - path != []
+    """
+    distance = 0.0
+    for road in path:
+        distance += road.length
+    return distance
+
+
+# @check_contracts
+def shortest_path(paths: list[list[Road]]) -> list[Road]:
+    """Returns the path with the shortest length.
+
+    Preconditions:
+    - paths != []
+    """
+    selected_path = paths[0]
+    shortest_distance = compute_path_distance(paths[0])
+    for path in paths:
+        path_distance = compute_path_distance(path)
+        if path_distance < shortest_distance:
+            shortest_distance = path_distance
+            selected_path = path
+    return selected_path
 
 
 if __name__ == '__main__':
