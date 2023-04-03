@@ -165,6 +165,14 @@ class RoadNetwork:
 
         return adjacencies_so_far
     
+     def get_roads(self) -> list[Road]:
+        """Return a list of all the roads in this network."""
+        roads = set()
+        for node in self._nodes.values():
+            for road in node.roads.values():
+                roads.add(road)
+        return list(roads)
+    
     def find_paths(self, start: int, end: int) -> list[list[Road]]:
         """Return a list of all paths in this network between start and end.
 
