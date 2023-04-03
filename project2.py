@@ -23,7 +23,7 @@ def visualize_graph(network: RoadNetwork):
     graph = nx.Graph()
     edges = path_to_edges(network.get_roads())
     graph.add_edges_from(edges)
-    nx.draw(graph, with_labels=True)
+    nx.draw_random(graph, with_labels=True)
     plt.show()
 
 
@@ -36,7 +36,7 @@ def visualize_shortest_path_graph(network: RoadNetwork, shortes_path: list[Road]
     for edge in edges:
         graph.add_edge(edge[0], edge[1], color='r' if edge in highlighted_edges else 'b')
     colors = nx.get_edge_attributes(graph, 'color').values()
-    nx.draw(graph, edge_color=colors, with_labels=True)
+    nx.draw_random(graph, edge_color=colors, with_labels=True)
     plt.show()
 
 
