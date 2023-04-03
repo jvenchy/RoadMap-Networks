@@ -1,6 +1,8 @@
 """
 Part2
 """
+from typing import Any
+
 from project1 import RoadNetwork, Road
 import csv
 import networkx as nx
@@ -17,6 +19,7 @@ def load_road_network(file: str) -> Any:
         for row in reader:
             network.add_road(int(row[2]), int(row[3]), float(row[5]))
     return network
+
 
 def visualize_graph(network: RoadNetwork):
     """Visualize the given network"""
