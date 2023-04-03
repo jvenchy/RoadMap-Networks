@@ -18,10 +18,21 @@ from python_ta.contracts import check_contracts
 
 import project
 
+@check_contracts
+def starting_runner(file: str) -> None:
+    """
+    Visualize just the node network, recommended to be done first for determining which start and end addresses the
+    user wants to use in the main runner.
+    """
+    network = project.load_road_network(file)
+    project.visualize_graph(network)
+
 
 @check_contracts
-def runner(file: str, start: int, end: int, event: Optional[str] = None) -> None:
-    """Main runner
+def main_runner(file: str, start: int, end: int, event: Optional[str] = None) -> None:
+    """Main runner for visualizing shortest path between two intersections. Important Note: the nodes will not be in the
+    same position every time as they are randomly drawn thanks to NetworkX.draw_random. This is only a visualization
+    quirk and doesn't impact any other part of the project!
 
     Preconditions:
         - event == 'traffic' or event == 'closure' or event is None
