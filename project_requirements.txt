@@ -1,0 +1,10 @@
+# CSC111 Winter 2023 Group Project: Python libraries used in the group project.
+
+# Testing and code checking
+hypothesis~=6.62.0
+pytest~=7.2.0
+python-ta~=2.4.0
+
+# Graphics and data visualization
+networkx~=3.0
+matplotlib~=3.7.1
